@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# http://email.esm.psu.edu/pipermail/macosx-tex/2004-July/006767.html
+
+for fn in "$@"
+do
+    echo "Converting $fn to ${fn%.pdf}.eps ..."
+    gs -dNOPAUSE -dNOCACHE -dBATCH -sDEVICE=epswrite -sOutputFile=${fn%.pdf}.eps $fn
+done

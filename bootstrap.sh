@@ -26,6 +26,7 @@ ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
+ln -Ffs $DOTDIR/adsbibdesk $HOME/.adsbibdesk
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib

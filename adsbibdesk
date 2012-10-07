@@ -1,0 +1,15 @@
+# ADS mirror
+ads_mirror=adsabs.harvard.edu
+#ads_mirror=ukads.nottingham.ac.uk
+
+# arXiv mirror
+# (leave it unset to use the arXiv mirror pointed by your ADS mirror)
+arxiv_mirror=
+
+# download PDFs?
+download_pdf=True
+
+# set these to use your account on a remote machine for fetching
+# (refereed) PDF's you have no access locally
+ssh_user=
+ssh_server=

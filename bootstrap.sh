@@ -27,5 +27,9 @@ ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
 
+# Matplotlib
+mkdir -p $HOME/.matplotlib
+ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotib/matplotlibrc
+
 # Pygments
 pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }

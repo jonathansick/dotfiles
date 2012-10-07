@@ -1,0 +1,294 @@
+#! /bin/sh
+
+# Author: Matthieu Moy <Matthieu.Moy@imag.fr> (2012)
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+#
+# git-latexdiff is a wrapper around latexdiff
+# (http://www.ctan.org/pkg/latexdiff) that allows using it to diff two
+# revisions of a LaTeX file.
+#
+# The script internally checks out the full tree for the specified
+# revisions, and calls latexdiff with the --flatten option, hence this
+# works if the document is split into multiple .tex files.
+#
+# Try "git latexdiff -h" for more information.
+#
+# To install, just copy git-latexdiff in your $PATH.
+
+# Missing features (patches welcome ;-):
+# - diff the index or the current worktree
+# - checkout only a subdirectory of the repo
+# - hardlink temporary checkouts as much as possible
+
+# Alternatives:
+#
+# There is another script doing essentially the same here:
+# https://github.com/cawka/latexdiff/blob/master/latexdiff-git
+# My experience is that latexdiff-git is more buggy than
+# git-latexdiff, but they probably just don't have the same bugs ;-)
+#
+# Ideally, these two scripts should be merged.
+
+usage () {
+            cat << EOF
+Usage: $(basename $0) [options] OLD [NEW]
+Call latexdiff on two Git revisions of a file.
+
+OLD and NEW are Git revision identifiers. NEW defaults to HEAD.
+
+Options:
+    --help                this help message
+    --main <file.tex>     name of the main LaTeX file
+    --no-view             don't display the resulting PDF file
+    --bibtex, -b          run bibtex as well as latex
+                             (pdflatex,bibtex,pdflatex,pdflatex)
+    --view                view the resulting PDF file
+                            (default if -o is not used)
+    --pdf-viewer <cmd>    use <cmd> to view the PDF file (default: \$PDFVIEWER)
+    --no-cleanup          don't cleanup temp dir after running
+    -o <file>, --output <file>
+                          copy resulting PDF into <file>
+                             (usually ending with .pdf)
+    --verbose, -v         give more verbose output
+EOF
+}
+
+die () {
+    echo "fatal: $@"
+    exit 1
+}
+
+verbose () {
+    if test "$verbose" = 1 ; then
+	printf "%s ..." "$@"
+    fi
+}
+
+verbose_progress () {
+    if test "$verbose" = 1 ; then
+	printf "." "$@"
+    fi
+}
+
+verbose_done () {
+    if test "$verbose" = 1 ; then
+	echo " ${1:-done}."
+    fi
+}
+
+old=
+new=
+main=
+view=maybe
+cleanup=1
+verbose=0
+bibtex=0
+output=
+initial_dir=$PWD
+
+while test $# -ne 0; do
+    case "$1" in
+        "--help"|"-h")
+            usage
+            exit 0
+            ;;
+	"--main")
+	    test $# -gt 1 && shift || die "missing argument for $1"
+	    main=$1
+	    ;;
+	"--no-view")
+	    view=0
+	    ;;
+	"--view")
+	    view=1
+	    ;;
+	"--pdf-viewer")
+	    test $# -gt 1 && shift || die "missing argument for $1"
+	    PDFVIEWER="$1"
+	    ;;
+	"--no-cleanup")
+	    cleanup=0
+	    ;;
+	"-o"|"--output")
+	    test $# -gt 1 && shift || die "missing argument for $1"
+	    output=$1
+	    ;;
+	"-b"|"--bibtex")
+	    bibtex=1
+	    ;;
+	"--verbose"|"-v")
+	    verbose=1
+	    ;;
+        *)
+	    if test -z "$1" ; then
+		echo "Empty string not allowed as argument"
+		usage
+		exit 1
+	    elif test -z "$old" ; then
+		old=$1
+	    elif test -z "$new" ; then
+		new=$1
+	    else
+		echo "Bad argument $1"
+		usage
+		exit 1
+	    fi
+            ;;
+    esac
+    shift
+done
+
+if test -z "$new" ; then
+    new=HEAD
+fi
+
+if test -z "$old" ; then
+    echo "fatal: Please, provide at least one revision to diff with."
+    usage
+    exit 1
+fi
+
+if test -z "$PDFVIEWER" ; then
+    verbose "Auto-detecting PDF viewer"
+    candidates="xdg-open evince okular xpdf acroread"
+    if test "$(uname)" = Darwin ; then
+        # open exists on GNU/Linux, but does not open PDFs
+	candidates="open $candidates"
+    fi
+
+    for command in $candidates; do
+	if command -v "$command" >/dev/null 2>&1; then
+	    PDFVIEWER="$command"
+	    break
+	else
+	    verbose_progress
+	fi
+    done
+    verbose_done "$PDFVIEWER"
+fi
+
+case "$view" in
+    maybe|1)
+	if test -z "$PDFVIEWER" ; then
+	    echo "warning: could not find a PDF viewer on your system."
+	    echo "warning: Please set \$PDFVIEWER or use --pdf-viewer CMD."
+	    PDFVIEWER=false
+	fi
+	;;
+esac
+
+if test -z "$main" ; then
+    printf "%s" "No --main provided, trying to guess ... "
+    main=$(git grep -l '^[ \t]*\\documentclass')
+    # May return multiple results, but if so the result won't be a file.
+    if test -r "$main" ; then
+	echo "Using $main as the main file."
+    else
+	if test -z "$main" ; then
+	    echo "No candidate for main file."
+	else
+	    echo "Multiple candidates for main file:"
+	    printf "%s\n" "$main" | sed 's/^/\t/'
+	fi
+	die "Please, provide a main file with --main FILE.tex."
+    fi
+fi
+
+if test ! -r "$main" ; then
+    die "Cannot read $main."
+fi
+
+verbose "Creating temporary directories"
+
+git_prefix=$(git rev-parse --show-prefix)
+cd "$(git rev-parse --show-cdup)" || die "Can't cd back to repository root"
+git_dir="$(git rev-parse --git-dir)" || die "Not a git repository?"
+git_dir=$(cd "$git_dir"; pwd)
+
+main=$git_prefix/$main
+
+tmpdir=$initial_dir/git-latexdiff.$$
+mkdir "$tmpdir" || die "Cannot create temporary directory."
+
+cd "$tmpdir" || die "Cannot cd to $tmpdir"
+
+mkdir old new diff || die "Cannot create old, new and diff directories."
+
+verbose_done
+verbose "Checking out old and new version"
+
+cd old || die "Cannot cd to old/"
+git --git-dir="$git_dir" --work-tree=. checkout "$old" -- . || die "checkout failed for old/"
+verbose_progress
+cd ../new || die "Cannot cd to new/"
+git --git-dir="$git_dir" --work-tree=. checkout "$new" -- . || die "checkout failed for new/"
+verbose_progress
+cd ..
+
+verbose_done
+verbose "Running latexdiff --flatten old/$main new/$main > $main"
+
+latexdiff --flatten old/"$main" new/"$main" > diff.tex || die "latexdiff failed"
+
+mv -f diff.tex new/"$main"
+
+verbose_done
+
+mainbase=$(basename "$main" .tex)
+maindir=$(dirname "$main")
+
+verbose "Compiling result"
+
+compile_error=0
+cd new/"$maindir" || die "Can't cd to new/$maindir"
+if test -f Makefile ; then
+    make || compile_error=1
+else
+    pdflatex --interaction errorstopmode "$mainbase" || compile_error=1
+    if test "$bibtex" = 1 ; then
+	bibtex "$mainbase"  || compile_error=1
+	pdflatex --interaction errorstopmode "$mainbase" || compile_error=1
+	pdflatex --interaction errorstopmode "$mainbase" || compile_error=1
+    fi
+fi
+
+verbose_done
+
+pdffile="$mainbase".pdf
+if test ! -r "$pdffile" ; then
+    echo "No PDF file generated."
+    compile_error=1
+fi
+
+if test ! -s "$pdffile" ; then
+    echo "PDF file generated is empty."
+    compile_error=1
+fi
+
+if test "$compile_error" = "1" ; then
+    echo "Error during compilation. Please examine and cleanup if needed:"
+    echo "Directory: $tmpdir/new/$maindir/"
+    echo "     File: $mainbase.tex"
+    # Don't clean up to let the user diagnose.
+    exit 1
+fi
+
+if test -n "$output" ; then
+    abs_pdffile="$PWD/$pdffile"
+    (cd "$initial_dir" && cp "$abs_pdffile" "$output")
+    echo "Output written on $output"
+fi
+
+if test "$view" = 1  || test "$view" = maybe  && test -z "$output" ; then
+    "$PDFVIEWER" "$pdffile"
+fi
+
+if test "$cleanup" = 1 ; then
+    verbose "Cleaning-up result"
+    rm -fr "$tmpdir"
+    verbose_done
+fi

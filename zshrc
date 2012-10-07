@@ -10,5 +10,8 @@ for config_file ($HOME/dotfiles/**/*.zsh) source $config_file
 # Add bin to path
 export PATH=$HOME/dotfiles/bin:$PATH
 
+# Setup z: https://github.com/rupa/z
+. $HOME/dotfiles/z/z.sh
+
 # Finally, local settings
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

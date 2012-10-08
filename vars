@@ -1,0 +1,8 @@
+export MYNAME='Jonathan Sick'
+
+# Fixes unicode issues when SSH'ing in
+# See http://superuser.com/questions/267362/mac-terminal-doesnt-display-unicode-utf-8-properly-when-sshed-into-linux-and-r
+export LANG="en_ca.UTF-8"
+
+# Setup Conroy, Gunn & White's FSPS
+export SPS_HOME=$HOME/bin/fsps

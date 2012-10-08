@@ -13,5 +13,8 @@ export PATH=$HOME/dotfiles/bin:$PATH
 # Setup z: https://github.com/rupa/z
 . $HOME/dotfiles/z/z.sh
 
-# Finally, local settings
+# Source personal configurations maintained in git
+source $HOME/dotfiles/vars
+
+# Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

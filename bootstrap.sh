@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Dotfiles installation script
 # Based on https://github.com/dfm/dotfiles
 
@@ -5,9 +7,9 @@
 DOTDIR=$HOME/dotfiles
 if [ `pwd` != $DOTDIR ]; then
     echo "This must be run from $HOME/dotfiles"
-    git submodule update --init
     exit 1;
 fi
+git submodule update --init
 
 # Vim is configured in a separate repo
 # But we can setup it up now

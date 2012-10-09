@@ -2,6 +2,7 @@
 
 # Dotfiles installation script
 # Based on https://github.com/dfm/dotfiles
+# Vim installation assumes SSH keys to get r/w access to sickvim @ github
 
 # Get the dotfiles directory (based on where this script is running from)
 DOTDIR=$HOME/dotfiles
@@ -31,7 +32,7 @@ ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
-ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotib/matplotlibrc
+ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotlib/matplotlibrc
 
 # Pygments
 pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }

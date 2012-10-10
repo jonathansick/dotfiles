@@ -2,37 +2,43 @@
 
 # Dotfiles installation script
 # Based on https://github.com/dfm/dotfiles
-# Vim installation assumes SSH keys to get r/w access to sickvim @ github
+#
+# Get the machinery rolling with:
+# curl -L https://raw.github.com/jonathansick/dotfiles/master/bootstrap.sh | bash
 
-# Get the dotfiles directory (based on where this script is running from)
+
 DOTDIR=$HOME/dotfiles
-if [ `pwd` != $DOTDIR ]; then
-    echo "This must be run from $HOME/dotfiles"
+
+if [ -d $DOTDIR ]; then
+    echo "jonathansick/dotfiles seems to be installed already."
     exit 1;
 fi
-git submodule update --init
 
-# Vim is configured in a separate repo
-# But we can setup it up now
-DOTVIM=$HOME/.vim
-if [ ! -d $DOTVIM ]; then
-    git clone git@github.com:jonathansick/sickvim.git $DOTVIM
-    (cd $DOTVIM; git submodule update --init)
-    ln -Ffs $DOTVIM/vimrc $HOME/.vimrc
-    else
-        echo "sickvim is already installed."
-fi
+# Get it
+git clone https://github.com/jonathansick/dotfiles.git $DOTDIR
+cd $DOTDIR
+git submodule update --init
 
 # Link dotfiles that need to be in $HOME
 ln -Ffs $DOTDIR/zshrc $HOME/.zshrc
 ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
-ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/gitexcludes $HOME/.gitexcludes
 ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
 ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotlib/matplotlibrc
+
+
+# Vim is configured in a separate repo
+# But we can setup it up now
+DOTVIM=$HOME/.vim
+if [ ! -d $DOTVIM ]; then
+    curl -L https://raw.github.com/jonathansick/sickvim/master/bootstrap.sh | bash
+    else
+        echo "sickvim is already installed."
+fi
+
 
 # Pygments
 pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }

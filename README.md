@@ -19,6 +19,15 @@ By default bootstrap scripts set the remote URL of both this dotfiles repository
 
 to change the git origin remote URLs to use SSH instead.
 
+### Uninstallation
+
+Run
+
+    tools/uninstall.sh
+
+to remove all links created by the bootstrap script.
+The `$HOME/dotfiles/` directory won't be deleted.
+
 ## Architecture
 
 My hope with these dotfiles is to maintain a generic cross-platform dotfile in the `master` branch, while maintaining branches specifically for Mac OS X, ubuntu, etc..

@@ -4,7 +4,7 @@
 # Based on https://github.com/dfm/dotfiles
 #
 # Get the machinery rolling with:
-# curl -L https://raw.github.com/jonathansick/dotfiles/master/bootstrap.sh | bash
+# curl -L https://raw.github.com/jonathansick/dotfiles/master/tools/bootstrap.sh | bash
 
 
 DOTDIR=$HOME/dotfiles

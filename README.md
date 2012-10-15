@@ -7,7 +7,7 @@ This isn't a fork of those since I wanted to patiently sort through each file, s
 
 With `curl` available:
 
-    curl -L https://raw.github.com/jonathansick/dotfiles/master/bootstrap.sh | bash
+    curl -L https://raw.github.com/jonathansick/dotfiles/master/tools/bootstrap.sh | bash
 
 This will run clone these dotfiles into `$HOME/dotfiles/`, install [sickvim][] in `$HOME/.vim/` and link appropriate dotfiles into `$HOME` itself.
 *Note:* the branch name in URL of the bootstrap script can be changed to support the system you're bootstrapping into.
@@ -15,7 +15,7 @@ This will run clone these dotfiles into `$HOME/dotfiles/`, install [sickvim][] i
 By default bootstrap scripts set the remote URL of both this dotfiles repository and [sickvim][] to use HTTPS so that they can be bootstrapped into virtual machines that don't have my Git credentials.
 *If you're me*, however, you can run
 
-    $HOME/dotfiles/enable_github.sh; $HOME/.vim/enable_github.sh
+    $HOME/dotfiles/tools/enable_github.sh; $HOME/.vim/enable_github.sh
 
 to change the git origin remote URLs to use SSH instead.
 

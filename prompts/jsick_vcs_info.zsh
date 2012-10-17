@@ -36,6 +36,9 @@ function +vi-git-untracked() {
     fi
 }
 
+% From DFM
+local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+
 # Executed before each prompt
 function precmd {
     vcs_info
@@ -45,5 +48,5 @@ function precmd {
 
 function setprompt {
     PROMPT='${vcs_info_msg_0_} '
-    RPROMPT='%n@%m %~'
+    RPROMPT='%n@%m %~ ${return_code}'
 }

@@ -3,10 +3,25 @@
 autoload -U colors && colors
 autoload -Uz vcs_info
 
+zstyle ':vcs_info:*+*:*' debug true
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*:*' get-revision true
 zstyle ':vcs_info:git*:*' check-for-changes true
 # zstyle ':vcs_info:git*+set-message:*' hooks git-st git-stash
+
+
+# Formats for git vcs_info
+# see http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Version-Control-Information
+# for syntax
+zstyle ':vcs_info:git*' formats "%r %.7i %b
+%s"
+
+# Lets me customize the vcs_message for git
+# Based on the vcs_info docs, search svn2subversion
+zstyle ':vcs_info:git+set-message:*' hooks git2symbol
+function +vi-git2symbol() {
+    hook_com[vcs]=±
+}
 
 # Show count of stashed changes
 # https://raw.github.com/whiteinge/dotfiles/master/.zsh_shouse_prompt

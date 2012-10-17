@@ -8,17 +8,14 @@ zstyle ':vcs_info:git*:*' get-revision true
 zstyle ':vcs_info:git*:*' check-for-changes true
 # zstyle ':vcs_info:git*+set-message:*' hooks git-st git-stash
 
-# setopt prompt_subst
-# PROMPT='${vcs_info_msg_0_}%# '
-
 # Show count of stashed changes
 # https://raw.github.com/whiteinge/dotfiles/master/.zsh_shouse_prompt
 function +vi-git-stash() {
-    local -a stashes
+    local -a stash_count
 
     if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
-            stashes=$(git stash list 2>/dev/null | wc -l)
-            hook_com[misc]+=" (${stashes} stashed)"
+            stash_count=$(git stash list 2>/dev/null | wc -l)
+            hook_com[misc]+=" (${stashe_count} stashed)"
     fi
 }
 

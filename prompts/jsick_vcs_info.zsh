@@ -45,4 +45,5 @@ function precmd {
 
 function setprompt {
     PROMPT='${vcs_info_msg_0_} '
+    RPROMPT='%n@%m %~'
 }

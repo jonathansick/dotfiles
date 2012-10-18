@@ -64,7 +64,7 @@ function +vi-git-untracked() {
     fi
 }
 
-% From DFM
+# From DFM
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 # Executed before each prompt
@@ -75,6 +75,8 @@ function precmd {
 }
 
 function setprompt {
-    PROMPT='${vcs_info_msg_0_} '
+    PROMPT='${vcs_info_msg_0_}  '
     RPROMPT='%n@%m %~ ${return_code}'
+    # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
+    # RPROMPT='%(?,:%),%? :() %~'
 }

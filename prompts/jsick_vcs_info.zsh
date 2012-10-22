@@ -5,7 +5,7 @@ autoload -Uz vcs_info
 
 # zstyle ':vcs_info:*+*:*' debug true
 zstyle ':vcs_info:*' enable git
-# zstyle ':vcs_info:git*:*' get-revision true
+zstyle ':vcs_info:git*:*' get-revision false
 zstyle ':vcs_info:git*:*' check-for-changes true
 zstyle ':vcs_info:git*+set-message:*' hooks git-st git2symbol git-stash
 

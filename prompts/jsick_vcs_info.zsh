@@ -7,14 +7,16 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 # zstyle ':vcs_info:git*:*' get-revision true
 zstyle ':vcs_info:git*:*' check-for-changes true
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st git-stash git2symbol
+zstyle ':vcs_info:git*+set-message:*' hooks git-st git2symbol git-stash
 
+zstyle ':vcs_info:git*:*' stagedstr "%{$fg[red]%}↑ "
+zstyle ':vcs_info:git*:*' unstagedstr "%{$fg[yellow]%}⚡ "
 
 # Formats for git vcs_info
 # see http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Version-Control-Information
 # for syntax
 # To show SHA turn on get-revision and use code: %.7i
-zstyle ':vcs_info:git*' formats "%{$fg[blue]%}%s %r %b%m
+zstyle ':vcs_info:git*' formats "%{$fg[blue]%}%s %u%c%{$fg[blue]%}%r %b%m
 "
 
 # Lets me customize the vcs_message for git

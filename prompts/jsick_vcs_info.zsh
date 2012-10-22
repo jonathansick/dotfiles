@@ -45,10 +45,13 @@ function +vi-git-st() {
     # Are we on a remote-tracking branch?
     if [[ -n ${remote} ]] ; then
         behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-                (( $behind )) && gitstatus+=( "❰${behind}" )
+                (( $behind )) && gitstatus+=( "%{$fg[red]%}❰${behind}" )
         ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-                (( $ahead )) && gitstatus+=( "${ahead}❱" )
-        hook_com[branch]="${hook_com[branch]} ${(j: :)gitstatus} ${remote}"
+                (( $ahead )) && gitstatus+=( "%{$fg[cyan]%}${ahead}❱" )
+        if [[ $ahead == "0" && $behind == "0" ]]; then
+            gitstatus=( "⇄" )  # default if in sync
+        fi
+        hook_com[branch]="${hook_com[branch]} ${(j: :)gitstatus} %{$fg[blue]%}${remote}"
     fi
 }
 

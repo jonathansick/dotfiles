@@ -13,8 +13,8 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st git-stash git2s
 # Formats for git vcs_info
 # see http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Version-Control-Information
 # for syntax
-zstyle ':vcs_info:git*' formats "%r %.7i %b%m
-%s"
+zstyle ':vcs_info:git*' formats "%s %r %.7i %b%m
+"
 
 # Lets me customize the vcs_message for git
 # Based on the vcs_info docs, search svn2subversion
@@ -72,9 +72,9 @@ function precmd {
 }
 
 function setprompt {
-    PROMPT='${vcs_info_msg_0_}  '
-    # RPROMPT='%n@%m %~ ${return_code}'
+    PROMPT="${vcs_info_msg_0_}%{$fg[red]%}»%{$reset_color%} "
+    RPROMPT="%n@%m %~ %(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+    # Alt return code for right prompt
     # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
     # RPROMPT='%(?,:%),%? :() %~'
-    RPROMPT="%n@%m %~ %(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 }

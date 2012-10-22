@@ -35,6 +35,7 @@ function +vi-git-stash() {
 
 # Show remote ref name and number of commits ahead-of or behind
 # https://raw.github.com/whiteinge/dotfiles/master/.zsh_shouse_prompt
+# j Explained: http://stackoverflow.com/questions/10796371/manipulate-zsh-arrays-with-operator-j
 # This needs git 1.7+
 function +vi-git-st() {
     local ahead behind remote
@@ -43,11 +44,11 @@ function +vi-git-st() {
             --symbolic-full-name --abbrev-ref 2>/dev/null)}
     # Are we on a remote-tracking branch?
     if [[ -n ${remote} ]] ; then
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-                (( $ahead )) && gitstatus+=( "+${ahead}" )
         behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-                (( $behind )) && gitstatus+=( "-${behind}" )
-        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
+                (( $behind )) && gitstatus+=( "❰${behind}" )
+        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+                (( $ahead )) && gitstatus+=( "${ahead}❱" )
+        hook_com[branch]="${hook_com[branch]} ${(j: :)gitstatus} ${remote}"
     fi
 }
 

@@ -7,6 +7,9 @@ compinit -i
 # Source all the config files.
 for config_file ($HOME/dotfiles/**/*.zsh) source $config_file
 
+# Choose a prompt
+source $HOME/dotfiles/prompts/jsick_vcs_info.zsh
+
 # Add bin to path
 export PATH=$HOME/dotfiles/bin:$PATH
 

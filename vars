@@ -6,3 +6,11 @@ export LANG="en_ca.UTF-8"
 
 # Setup Conroy, Gunn & White's FSPS
 export SPS_HOME=$HOME/bin/fsps
+
+# Setup MacTex
+export PATH=/usr/texbin:$PATH
+
+# Homebrew and system installs
+export PATH=/usr/local/Cellar/ruby/1.9.3-p194/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:$PATH

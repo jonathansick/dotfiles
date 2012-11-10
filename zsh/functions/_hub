@@ -1,7 +1,9 @@
+#compdef git
+#autoload
+
 # hub tab-completion script for zsh.
 # This script complements the completion script that ships with git.
-#
-# vim: ft=zsh sw=2 ts=2 et
+# https://github.com/defunkt/hub/blob/master/etc/hub.zsh_completion
 
 # Autoload _git completion functions
 if declare -f _git > /dev/null; then

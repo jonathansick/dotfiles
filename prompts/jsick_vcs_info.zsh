@@ -32,7 +32,7 @@ function +vi-git-stash() {
 
     if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
             stash_count=$(git stash list 2>/dev/null | wc -l)
-            hook_com[misc]+=" (${stash_count} stashed)"
+            hook_com[misc]+=" (${stash_count// /} stashed)"
     fi
 }
 
@@ -47,11 +47,12 @@ function +vi-git-st() {
             --symbolic-full-name --abbrev-ref 2>/dev/null)}
     # Are we on a remote-tracking branch?
     if [[ -n ${remote} ]] ; then
+        # Note that ${behind// /}, etc. remove whitespace from string
         behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-                (( $behind )) && gitstatus+=( "%{$fg[red]%}❰${behind}" )
+                (( $behind )) && gitstatus+=( "%{$fg[red]%}❰${behind// /}" )
         ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-                (( $ahead )) && gitstatus+=( "%{$fg[cyan]%}${ahead}❱" )
-        if [[ $ahead == "0" && $behind == "0" ]]; then
+                (( $ahead )) && gitstatus+=( "%{$fg[cyan]%}${ahead// /}❱" )
+        if [[ ${ahead// /} == "0" && ${behind// /} == "0" ]]; then
             gitstatus=( "⇄" )  # default if in sync
         fi
         hook_com[branch]="${hook_com[branch]} ${(j: :)gitstatus} %{$fg[blue]%}${remote}"

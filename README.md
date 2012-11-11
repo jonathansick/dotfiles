@@ -30,14 +30,16 @@ The `$HOME/dotfiles/` directory won't be deleted.
 
 ## Architecture
 
-My hope with these dotfiles is to maintain a generic cross-platform dotfile in the `master` branch, while maintaining branches specifically for Mac OS X, ubuntu, etc..
-If anything, this will be a great git-cherry picking exercise!
+My hope with these dotfiles is to maintain a generic cross-platform dotfile in the `master` branch, while maintaining branches specifically for Mac OS X, ubuntu, EC2 machine images, *etc.*.
 
 Available localizations are:
 
 - [`mac`](https://github.com/jonathansick/dotfiles/tree/mac)
 
+## Documentation
+
+I started [a wiki](https://github.com/jonathansick/dotfiles/wiki) to maintain notes, both about these dotfiles, and for platform-specific software build tricks.
+
 [Dan-FM's]: https://github.com/dfm/dotfiles
 [oh-my-zsh]: https://github.com/robbyrussell/oh-my-zsh
 [sickvim]: https://github.com/jonathansick/sickvim
-

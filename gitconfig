@@ -1,4 +1,3 @@
-# Based on https://github.com/dfm/dotfiles
 [user]
     name = Jonathan Sick
     email = jonathansick@mac.com
@@ -9,7 +8,10 @@
 
 [color]
     ui = always
-    status = always
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
 
 [alias]
     tags = tag -l
@@ -63,20 +65,8 @@
 [difftool.latex]
     cmd = git-latexdiff "$LOCAL" "$REMOTE"
 
-[difftool "Kaleidoscope"]
-    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
-
 [difftool]
     prompt = false
 
-[diff]
-    tool = Kaleidoscope
-
 [push]
     default = current
-
-[color]
-    branch = auto
-    diff = auto
-    interactive = auto
-    status = auto

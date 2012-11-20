@@ -33,6 +33,8 @@
     dt = difftool
     wdiff = diff --color-words
     ldiff = difftool -t latex
+    ksdiff = difftool -y -t Kaleidoscope
+    ksmerge = mergetool -y -t Kaleidoscope
 
     co = checkout
     id = rev-parse
@@ -64,7 +66,10 @@
     cmd = git-latexdiff "$LOCAL" "$REMOTE"
 
 [difftool "Kaleidoscope"]
-    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 
 [difftool]
     prompt = false

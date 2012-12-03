@@ -1,3 +1,6 @@
-[submodule "z"]
-	path = z
-	url = https://github.com/rupa/z.git
+[submodule "lib/formd"]
+	path = lib/formd
+	url = git://github.com/drbunsen/formd.git
+[submodule "lib/z"]
+	path = lib/z
+	url = git://github.com/rupa/z.git

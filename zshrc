@@ -14,7 +14,7 @@ source $HOME/dotfiles/prompts/jsick_vcs_info.zsh
 export PATH=$HOME/dotfiles/bin:$PATH
 
 # Setup z: https://github.com/rupa/z
-. $HOME/dotfiles/z/z.sh
+. $HOME/dotfiles/lib/z/z.sh
 
 # Source personal configurations maintained in git
 source $HOME/dotfiles/vars

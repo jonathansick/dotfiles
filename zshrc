@@ -19,5 +19,12 @@ export PATH=$HOME/dotfiles/bin:$PATH
 # Source personal configurations maintained in git
 source $HOME/dotfiles/vars
 
+# Setup virtualenvwrapper
+# Running this after all the python paths have been set up
+# http://virtualenvwrapper.readthedocs.org/en/latest/index.html
+export WORKON_HOME=$HOME/.virtualenvs
+mkdir -p $WORKON_HOME
+source virtualenvwrapper.sh
+
 # Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

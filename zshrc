@@ -25,6 +25,10 @@ source $HOME/dotfiles/vars
 export WORKON_HOME=$HOME/.virtualenvs
 mkdir -p $WORKON_HOME
 source virtualenvwrapper.sh
+# Sync up virtualenv with virtualenvwrapper
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+# pip always installs in the active virtualenv
+export PIP_RESPECT_VIRTUALENV=true
 
 # Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

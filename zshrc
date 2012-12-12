@@ -22,13 +22,16 @@ source $HOME/dotfiles/vars
 # Setup virtualenvwrapper
 # Running this after all the python paths have been set up
 # http://virtualenvwrapper.readthedocs.org/en/latest/index.html
-export WORKON_HOME=$HOME/.virtualenvs
-mkdir -p $WORKON_HOME
-source virtualenvwrapper.sh
-# Sync up virtualenv with virtualenvwrapper
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-# pip always installs in the active virtualenv
-export PIP_RESPECT_VIRTUALENV=true
+if (( $+commands[virtualenvwrapper.sh] )) ; then
+    # virtualenvwrapper exists
+    export WORKON_HOME=$HOME/.virtualenvs
+    mkdir -p $WORKON_HOME
+    source virtualenvwrapper.sh
+    # Sync up virtualenv with virtualenvwrapper
+    export PIP_VIRTUALENV_BASE=$WORKON_HOME
+    # pip always installs in the active virtualenv
+    export PIP_RESPECT_VIRTUALENV=true
+fi
 
 # Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

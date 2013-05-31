@@ -1,6 +1,6 @@
 [user]
-    name = Jonathan Sick
-    email = jonathansick@mac.com
+	name = Jonathan Sick
+	email = jonathansick@mac.com
 
 [core]
     editor = vim
@@ -80,3 +80,5 @@
 
 [push]
     default = current
+[mergetool]
+	keepBackup = true

@@ -6,3 +6,6 @@ export LANG="en_ca.UTF-8"
 
 # Setup Conroy, Gunn & White's FSPS
 export SPS_HOME=$HOME/bin/fsps
+
+# Staging directory for CANFAR scratch space
+export TMPDIR=/staging/tmp

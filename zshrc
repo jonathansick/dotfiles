@@ -22,7 +22,7 @@ source $HOME/dotfiles/vars
 # Setup virtualenvwrapper
 # Running this after all the python paths have been set up
 # http://virtualenvwrapper.readthedocs.org/en/latest/index.html
-export $VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
 if (( $+commands[virtualenvwrapper.sh] )) ; then
     # virtualenvwrapper exists
     export WORKON_HOME=$HOME/.virtualenvs

@@ -7,6 +7,9 @@ export LANG="en_ca.UTF-8"
 # Setup Conroy, Gunn & White's FSPS
 export SPS_HOME=$HOME/bin/fsps
 
+# Setup dolphot
+export PATH=$HOME/bin/dolphot2.0/bin:$PATH
+
 # Setup MacTex
 export PATH=/usr/texbin:$PATH
 

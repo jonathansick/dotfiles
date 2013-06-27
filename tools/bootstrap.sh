@@ -29,6 +29,23 @@ ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
 mkdir -p $HOME/.matplotlib
 ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotlib/matplotlibrc
 
+# Virtualenvwrapper
+mkdir -p $HOME/.virtualenvs
+ln -Ffs $DOTDIR/virtualenvwrapper/get_env_details $HOME/.virtualenvs/get_env_details
+ln -Ffs $DOTDIR/virtualenvwrapper/initialize $HOME/.virtualenvs/initialize
+ln -Ffs $DOTDIR/virtualenvwrapper/postactivate $HOME/.virtualenvs/postactivate
+ln -Ffs $DOTDIR/virtualenvwrapper/postdeactivate $HOME/.virtualenvs/postdeactivate
+ln -Ffs $DOTDIR/virtualenvwrapper/postmkproject $HOME/.virtualenvs/postmkproject
+ln -Ffs $DOTDIR/virtualenvwrapper/postrmproject $HOME/.virtualenvs/postrmproject
+ln -Ffs $DOTDIR/virtualenvwrapper/postmkvirtualenv $HOME/.virtualenvs/postmkvirtualenv
+ln -Ffs $DOTDIR/virtualenvwrapper/postrmvirtualenv $HOME/.virtualenvs/postrmvirtualenv
+ln -Ffs $DOTDIR/virtualenvwrapper/preactivate $HOME/.virtualenvs/preactivate
+ln -Ffs $DOTDIR/virtualenvwrapper/predeactivate $HOME/.virtualenvs/predeactivate
+ln -Ffs $DOTDIR/virtualenvwrapper/premkproject $HOME/.virtualenvs/premkproject
+ln -Ffs $DOTDIR/virtualenvwrapper/premkvirtualenv $HOME/.virtualenvs/premkvirtualenv
+ln -Ffs $DOTDIR/virtualenvwrapper/prermproject $HOME/.virtualenvs/prermproject
+ln -Ffs $DOTDIR/virtualenvwrapper/prermvirtualenv $HOME/.virtualenvs/prermvirtualenv
+
 
 # Vim is configured in a separate repo
 # But we can setup it up now

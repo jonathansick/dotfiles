@@ -72,16 +72,21 @@ function +vi-git-untracked() {
     fi
 }
 
+# For virtualenvwrapper
+# from Steve Losh
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}
+
 # Executed before each prompt
 function precmd {
     vcs_info
     setprompt
-    # venv_rprompt
 }
 
 function setprompt {
     PROMPT="${vcs_info_msg_0_}%{$fg[red]%}»%{$reset_color%} "
-    RPROMPT="%{$fg[yellow]%}%n@%m %~%{$reset_color%} %(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+    RPROMPT="%{$fg[blue]%}$(virtualenv_info)%{$fg[yellow]%}%n@%m %~%{$reset_color%} %(?..%{$fg[red]%}%? ↵%{$reset_color%})"
     # Alt return code for right prompt
     # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
     # RPROMPT='%(?,:%),%? :() %~'

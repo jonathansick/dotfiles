@@ -24,7 +24,6 @@
     lgl = log     --color=always --all --graph --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
     pull = pull --ff-only
-    merge = merge --no-ff
     up = merge --ff-only
 
     ci = commit

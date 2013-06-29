@@ -19,6 +19,9 @@ export PATH=$HOME/dotfiles/bin:$PATH
 # Source personal configurations maintained in git
 source $HOME/dotfiles/vars
 
+# Cache PIP for speed (great for setting up virtual environments)
+export PIP_DOWNLOAD_CACHE=$HOME/.pip_download_cache
+
 # Setup virtualenvwrapper
 # Running this after all the python paths have been set up
 # http://virtualenvwrapper.readthedocs.org/en/latest/index.html

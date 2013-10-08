@@ -46,6 +46,9 @@ ln -Ffs $DOTDIR/virtualenvwrapper/premkvirtualenv $HOME/.virtualenvs/premkvirtua
 ln -Ffs $DOTDIR/virtualenvwrapper/prermproject $HOME/.virtualenvs/prermproject
 ln -Ffs $DOTDIR/virtualenvwrapper/prermvirtualenv $HOME/.virtualenvs/prermvirtualenv
 
+# Ruby bundle
+mkdir -p $HOME/.bundle
+ln -Ffs $DOTDIR/bundle_config $HOME/.bundle/config
 
 # Vim is configured in a separate repo
 # But we can setup it up now

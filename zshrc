@@ -36,5 +36,10 @@ if (( $+commands[virtualenvwrapper.sh] )) ; then
     export PIP_RESPECT_VIRTUALENV=true
 fi
 
+# Setup rbenv for managing Ruby environments
+# for shims and automcompletion
+# Default directory is ~/.rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 # Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

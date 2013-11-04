@@ -46,6 +46,9 @@ ln -Ffs $DOTDIR/virtualenvwrapper/premkvirtualenv $HOME/.virtualenvs/premkvirtua
 ln -Ffs $DOTDIR/virtualenvwrapper/prermproject $HOME/.virtualenvs/prermproject
 ln -Ffs $DOTDIR/virtualenvwrapper/prermvirtualenv $HOME/.virtualenvs/prermvirtualenv
 
+# Link scripts from lib to bin
+ln -Ffs $DOTDIR/lib/formd/formd $DOTDIR/bin/formd
+
 # Ruby bundle
 mkdir -p $HOME/.bundle
 ln -Ffs $DOTDIR/bundle_config $HOME/.bundle/config
@@ -58,7 +61,6 @@ if [ ! -d $DOTVIM ]; then
     else
         echo "sickvim is already installed."
 fi
-
 
 # Pygments
 pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }

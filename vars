@@ -23,4 +23,4 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # Increase max file desriptors on Mac
 # Note you also need to increase limit via lingon
 # i.e. Create a User Agent that runs 'limit maxfiles 256000'
-ulimit -n 2048 256000
+ulimit -n 8192 256000

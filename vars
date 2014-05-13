@@ -19,3 +19,8 @@ export PATH=/usr/local/share/python:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/share/npm/bin:$PATH
+
+# Increase max file desriptors on Mac
+# Note you also need to increase limit via lingon
+# i.e. Create a User Agent that runs 'limit maxfiles 256000'
+ulimit -n 2048 256000

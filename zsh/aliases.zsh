@@ -8,3 +8,7 @@ alias c="clear"
 alias v="vim"
 
 alias mkhtml="ls *.png | awk '{print \"<img src=\\\"\" $1 \"\\\" />\"}' > index.html"
+
+# For github pages import script
+# https://github.com/davisp/ghp-import
+alias push-docs="ghp-import -p -n docs/_build/html"

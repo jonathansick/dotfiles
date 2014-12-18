@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+"""
+Optimize a PDF for press with ghostscript.
+
+"""
+
+import os
+import shutil
+from argparse import ArgumentParser
+import subprocess
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("pdf_paths", nargs='*', help='PDF path(s)')
+    args = parser.parse_args()
+
+    cmd = "gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite " \
+          "-dPDFSETTINGS=/prepress -sOutputFile={out_path} {in_path}"
+
+    for path in args.pdf_paths:
+        assert os.path.exists(path)
+        tmp_path = path + ".temp"
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        shutil.move(path, tmp_path)
+        subprocess.call(cmd.format(in_path=tmp_path,
+                                   out_path=path),
+                        shell=True)
+        os.remove(tmp_path)
+
+
+if __name__ == "__main__":
+    main()

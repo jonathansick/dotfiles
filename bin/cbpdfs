@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+"""
+Combine PDFs with ghostscript.
+
+"""
+
+import os
+from argparse import ArgumentParser
+import subprocess
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("outfile", help='Output PDF path')
+    parser.add_argument("infiles", nargs='*', help='Input PDF paths')
+    args = parser.parse_args()
+
+    for path in args.infiles:
+        assert os.path.exists(path)
+    cmd = "gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite " \
+          "-dPDFSETTINGS=/prepress -sOutputFile={out_path} {in_paths}"
+    subprocess.call(cmd.format(in_paths=" ".join(args.infiles),
+                               out_path=args.outfile),
+                    shell=True)
+
+
+if __name__ == "__main__":
+    main()

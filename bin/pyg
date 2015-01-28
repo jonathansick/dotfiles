@@ -1,7 +1,7 @@
 #!/bin/bash
 # From http://emptysquare.net/blog/syntax-highlighting-with-pycharm-pygments-and-keynote/
 if [ $# == 1 ]; then
-    env pygmentize -f rtf -O "style=friendly,fontface=Courier Bold" "$1" | pbcopy
+    env pygmentize -f rtf -O "style=friendly,fontface=Source Code Pro" "$1" | sed "s/\\\\f0/\\\\f0\\\\fs64/g" | pbcopy
 else
-    env pygmentize -gf rtf -O "style=friendly,fontface=Courier Bold" | pbcopy
+    env pygmentize -gf rtf -O "style=friendly,fontface=Source Code Pro" | sed "s/\\\\f0/\\\\f0\\\\fs64/g" | pbcopy
 fi

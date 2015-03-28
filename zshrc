@@ -41,5 +41,11 @@ fi
 # Default directory is ~/.rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# For Go with homebrew
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
 # Finally, local settings not in git
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi

@@ -24,3 +24,7 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # Note you also need to increase limit via lingon
 # i.e. Create a User Agent that runs 'limit maxfiles 256000'
 ulimit -n 8192 256000
+
+# mkvirtualenv aliases
+alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/bin/python'
+alias mkve3='mkvirtualenv --no-site-packages --python=/usr/local/bin/python3'

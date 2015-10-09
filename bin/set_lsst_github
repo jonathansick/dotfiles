@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git config user.email "jsick@lsst.org"
+git config user.name
+git config user.email
+

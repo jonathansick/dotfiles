@@ -1,9 +1,4 @@
 #!/usr/local/bin/zsh
 # This hook is run after a new virtualenv is activated.
+pip install -U pip
 pip install -U setuptools
-pip install rope
-pip install pep8
-pip install pyflakes
-pip install nose
-pip install sphinx
-pip install ipython

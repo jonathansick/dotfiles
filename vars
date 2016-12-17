@@ -11,7 +11,7 @@ export SPS_HOME=$HOME/bin/fsps
 export PATH=$HOME/bin/dolphot2.0/bin:$PATH
 
 # Setup MacTex
-export PATH=/usr/texbin:$PATH
+export PATH=/Library/TeX/texbin:$PATH
 
 # Homebrew and system installs
 export PATH=/usr/local/Cellar/ruby/1.9.3-p327/bin:$PATH

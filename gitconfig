@@ -1,6 +1,7 @@
 [user]
 	name = Jonathan Sick
 	email = jsick@lsst.org
+	signingkey = 2C6020F7
 
 [core]
     editor = vim
@@ -87,3 +88,5 @@
 	required = true
 [credential]
 	helper = osxkeychain
+[commit]
+	gpgsign = true

@@ -1,3 +1,7 @@
+**This dotfile project is retired. See [jonathansick/sickconfig](https://github.com/jonathansick/sickconfig) for new [rcm](http://thoughtbot.github.io/rcm/)-based dotfiles.**
+
+****
+
 # Jonathan Sick's dotfiles
 
 These dotfiles are shamelessly based on [Dan-FM's][] and [oh-my-zsh][].
